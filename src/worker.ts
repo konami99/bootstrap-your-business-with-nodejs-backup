@@ -1,18 +1,9 @@
 import { MultiWorker, Scheduler, Queue } from 'node-resque';
-import EmailService from './services/emailService';
-import SendGrid from './services/sendGrid';
-
-const REDIS_URL = process.env.REDIS_URL || '127.0.0.1';
+import EmailService from './services/email/emailService';
+import SendGrid from './services/email/sendGrid';
+import QueueService from './services/queue/queueService';
 
 async function start() {
-  const connectionDetails = {
-    pkg: "ioredis",
-    host: REDIS_URL,
-    password: null,
-    port: 6379,
-    database: 0,
-  };
-
   const jobs = {
     add : {
       perform: async () => {
@@ -26,7 +17,7 @@ async function start() {
 
   const multiWorker = new MultiWorker(
     {
-      connection: connectionDetails,
+      connection: QueueService.connectionDetails,
       queues: ["math"],
       minTaskProcessors: 1,
       maxTaskProcessors: 100,
@@ -36,7 +27,7 @@ async function start() {
     jobs
   );
 
-  const scheduler = new Scheduler({ connection: connectionDetails });
+  const scheduler = new Scheduler({ connection: QueueService.connectionDetails });
 
   multiWorker.start();
 
