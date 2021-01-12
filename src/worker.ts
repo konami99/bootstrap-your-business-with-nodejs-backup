@@ -1,4 +1,6 @@
-const { MultiWorker, Scheduler, Queue } = require('node-resque');
+import { MultiWorker, Scheduler, Queue } from 'node-resque';
+import EmailService from './services/emailService';
+import SendGrid from './services/sendGrid';
 
 const REDIS_URL = process.env.REDIS_URL || '127.0.0.1';
 
@@ -9,15 +11,15 @@ async function start() {
     password: null,
     port: 6379,
     database: 0,
-    // namespace: 'resque',
-    // looping: true,
-    // options: {password: 'abc'},
   };
 
   const jobs = {
     add : {
-      perform: () => {
-        console.log('job');
+      perform: async () => {
+        console.log('sending email');
+        const sendGrid = new SendGrid();
+        const emailService = new EmailService(sendGrid);
+        await emailService.send('konami99@hotmail.com')
       }
     }
   }
@@ -35,9 +37,6 @@ async function start() {
   );
 
   const scheduler = new Scheduler({ connection: connectionDetails });
-
-  
-
 
   multiWorker.start();
 

@@ -1,8 +1,18 @@
 import { RequestHandler } from 'express';
-
+import { Queue } from 'node-resque';
 import { Todo } from '../models/todo';
 
 const TODOS: Todo[] = [];
+
+const connectionDetails = {
+  pkg: "ioredis",
+  host: process.env.REDIS_URL || '127.0.0.1',
+  password: null,
+  port: 6379,
+  database: 0,
+};
+
+const queue = new Queue({ connection: connectionDetails });
 
 export const createTodo: RequestHandler = (req, res, next) => {
   const text = (req.body as { text: string }).text;
@@ -13,7 +23,10 @@ export const createTodo: RequestHandler = (req, res, next) => {
   res.status(201).json({ message: 'Created the todo.', createdTodo: newTodo });
 };
 
-export const getTodos: RequestHandler = (req, res, next) => {
+export const getTodos: RequestHandler = async (req, res, next) => {
+  await queue.connect();
+  await queue.enqueue("math", "add", [1, 2]);
+
   res.json({ todos: TODOS });
 };
 
