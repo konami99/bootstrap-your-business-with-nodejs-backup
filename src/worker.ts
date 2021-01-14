@@ -1,24 +1,17 @@
 import { MultiWorker, Scheduler, Queue } from 'node-resque';
-import EmailService from './services/email/emailService';
-import SendGrid from './services/email/sendGrid';
+import JobWrapper from './services/queue/jobWrapper';
+import SendEmailJob from './jobs/sendEmailJob';
 import QueueService from './services/queue/queueService';
 
 async function start() {
   const jobs = {
-    add : {
-      perform: async () => {
-        console.log('sending email');
-        const sendGrid = new SendGrid();
-        const emailService = new EmailService(sendGrid);
-        await emailService.send('konami99@hotmail.com')
-      }
-    }
+    send : JobWrapper.wrap(new SendEmailJob()),
   }
 
   const multiWorker = new MultiWorker(
     {
       connection: QueueService.connectionDetails,
-      queues: ["math"],
+      queues: ['email'],
       minTaskProcessors: 1,
       maxTaskProcessors: 100,
       checkTimeout: 1000,

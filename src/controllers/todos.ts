@@ -15,7 +15,7 @@ export const createTodo: RequestHandler = (req, res, next) => {
 };
 
 export const getTodos: RequestHandler = async (req, res, next) => {
-  await QueueService.enqueue("math", "add", [1, 2]);
+  await QueueService.enqueue('email', 'send', ['konami99@hotmail.com']);
 
   res.json({ todos: TODOS });
 };
