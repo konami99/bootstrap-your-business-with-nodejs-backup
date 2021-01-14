@@ -16,8 +16,16 @@ export default class QueueService {
   }
 
   public static async enqueue(q: string, func: string, args?: any[] | undefined): Promise<any> {
-    QueueService.queue ||= new Queue({ connection: QueueService.connectionDetails });
-    await QueueService.queue.connect();
-    await QueueService.queue.enqueue(q, func, args);
+    const queue = this.getQueue();
+    await queue.connect();
+    await queue.enqueue(q, func, args);
+  }
+
+  private static getQueue() {
+    if (QueueService.queue) {
+      return QueueService.queue;
+    }
+    QueueService.queue = new Queue({ connection: QueueService.connectionDetails });
+    return QueueService.queue;
   }
 }
