@@ -28,7 +28,7 @@ if (clusterWorkerSize > 1) {
       res.status(500).json({ message: err.message });
     });
 
-    app.listen(3000);
+    app.listen(process.env.PORT);
   }
 } else {
   const app = express();
@@ -41,6 +41,6 @@ if (clusterWorkerSize > 1) {
     res.status(500).json({ message: err.message });
   });
 
-  app.listen(3000);
+  app.listen(process.env.PORT);
 }
 
