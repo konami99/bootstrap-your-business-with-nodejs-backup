@@ -4,6 +4,8 @@ import cluster from 'cluster';
 import { json } from 'body-parser';
 import todoRoutes from './routes/todos';
 import errorHandling from './middlewares/errorHandling'
+import 'reflect-metadata';
+import { createConnection } from 'typeorm';
 
 const clusterWorkerSize = os.cpus().length;
 
