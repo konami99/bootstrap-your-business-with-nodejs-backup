@@ -1,7 +1,16 @@
 import { MultiWorker, Scheduler, Queue } from 'node-resque';
-import JobWrapper from './services/queue/jobWrapper';
 import SendEmailJob from './jobs/sendEmailJob';
 import QueueService from './services/queue/queueService';
+
+class JobWrapper {
+  static wrap(proxy: any) {
+    return {
+      perform: async (...args: []) => {
+        return await proxy.perform.apply(proxy, args)
+      }
+    }
+  }
+}
 
 async function start() {
   const jobs = {

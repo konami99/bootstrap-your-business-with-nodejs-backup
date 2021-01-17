@@ -3,6 +3,7 @@ import os from 'os';
 import cluster from 'cluster';
 import { json } from 'body-parser';
 import todoRoutes from './routes/todos';
+import errorHandling from './middlewares/errorHandling'
 
 const clusterWorkerSize = os.cpus().length;
 
@@ -24,9 +25,7 @@ if (clusterWorkerSize > 1) {
 
     app.use('/todos', todoRoutes);
 
-    app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-      res.status(500).json({ message: err.message });
-    });
+    app.use(errorHandling);
 
     app.listen(process.env.PORT);
   }
@@ -37,9 +36,7 @@ if (clusterWorkerSize > 1) {
 
   app.use('/todos', todoRoutes);
 
-  app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    res.status(500).json({ message: err.message });
-  });
+  app.use(errorHandling);
 
   app.listen(process.env.PORT);
 }

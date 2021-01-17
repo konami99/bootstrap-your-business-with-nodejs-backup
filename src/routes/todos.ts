@@ -1,12 +1,15 @@
 import { Router } from 'express';
+import authentication from '../middlewares/authentication';
 
 import { createTodo, getTodos, updateTodo, deleteTodo } from '../controllers/todos';
 
 const router = Router();
 
+// router.use(authentication);
+
 router.post('/', createTodo);
 
-router.get('/', getTodos);
+router.get('/', authentication, getTodos);
 
 router.patch('/:id', updateTodo);
 
