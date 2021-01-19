@@ -1,9 +1,11 @@
+import EmailProviderInterface from './emailProviderInterface';
+
 export default class EmailService {
   constructor(private emailProvider: EmailProviderInterface) {
 
   }
 
-  async send(email: string) {
+  public async send(email: string) {
     this.emailProvider.send(email);
   }
 }

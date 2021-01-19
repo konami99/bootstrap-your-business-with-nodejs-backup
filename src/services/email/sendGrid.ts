@@ -1,4 +1,5 @@
 import sgMail from '@sendgrid/mail';
+import EmailProviderInterface from './emailProviderInterface';
 
 export default class SendGrid implements EmailProviderInterface {
   public async send(email: string): Promise<void> {
