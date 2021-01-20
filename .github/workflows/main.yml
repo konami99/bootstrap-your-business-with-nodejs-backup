@@ -24,11 +24,13 @@ jobs:
           postgresql db: node_test
           postgresql user: test
           postgresql password: test1123
+          
+      - run: npx tsc
 
-      - name: Run specs
+      - name: Run Specs
         run: npm test
         env:
           POSTGRES_HOST: localhost
           POSTGRES_USERNAME: test
-          POSTGRES_PASSWORD: test11234
+          POSTGRES_PASSWORD: test1123
           NODE_ENV: test
