@@ -2,6 +2,7 @@ import os from 'os';
 import cluster from 'cluster';
 import app from './app';
 import 'reflect-metadata';
+import DbConnection from './services/db/dbConnection';
 
 const clusterWorkerSize = os.cpus().length;
 
@@ -17,9 +18,13 @@ if (clusterWorkerSize > 1) {
     })
   } else {
     console.log('spawning child process!');
-    app.listen(process.env.PORT);
+    app.listen(process.env.PORT, async () => {
+      await DbConnection.getConnection();
+    });
   }
 } else {
-  app.listen(process.env.PORT);
+  app.listen(process.env.PORT, async () => {
+    await DbConnection.getConnection();
+  });
 }
 
