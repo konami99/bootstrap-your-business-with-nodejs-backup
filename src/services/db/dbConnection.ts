@@ -11,4 +11,8 @@ export default class DbConnection {
 
     return DbConnection.connection;
   }
+
+  public static async closeConnection(): Promise<void> {
+    if (DbConnection.connection) await DbConnection.connection.close();
+  }
 }

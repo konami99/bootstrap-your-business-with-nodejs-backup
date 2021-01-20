@@ -4,24 +4,34 @@ const database = {
   test: 'node_test'
 }
 
-module.exports = {
-  "type": "postgres",
-  "host": "localhost",
-  "port": 5432,
-  "username": "richard",
-  "password": "",
-  "database": database[process.env.NODE_ENV],
-  "synchronize": true,
-  "entities": [
+const entities = {
+  development: [
     "dist/entities/*.js"
   ],
-  "subscribers": [
+  production: [
+    "dist/entities/*.js"
+  ],
+  test: [
+    "src/entities/*.ts"
+  ],
+}
+
+module.exports = {
+  type: "postgres",
+  host: "localhost",
+  port: 5432,
+  username: "richard",
+  password: "",
+  database: database[process.env.NODE_ENV],
+  synchronize: true,
+  entities: entities[process.env.NODE_ENV],
+  subscribers: [
     "dist/subscribers/*.js"
   ],
-  "migrations": [
+  migrations: [
     "dist/migrations/*.js"
   ],
-  "cli": {
+  cli: {
     "entitiesDir": "src/entities",
     "migrationsDir": "src/migrations",
     "subscribersDir": "src/subscribers"
