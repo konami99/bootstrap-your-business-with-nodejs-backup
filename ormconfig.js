@@ -18,10 +18,10 @@ const entities = {
 
 module.exports = {
   type: "postgres",
-  host: "localhost",
+  host: process.env.POSTGRES_HOST,
   port: 5432,
-  username: "richard",
-  password: "",
+  username: process.env.POSTGRES_USERNAME,
+  password: process.env.POSTGRES_PASSWORD,
   database: database[process.env.NODE_ENV],
   synchronize: true,
   entities: entities[process.env.NODE_ENV],
