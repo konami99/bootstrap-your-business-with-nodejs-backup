@@ -1,11 +1,7 @@
-import express, { Request, Response, NextFunction } from 'express';
 import os from 'os';
 import cluster from 'cluster';
-import { json } from 'body-parser';
-import todoRoutes from './routes/todos';
-import errorHandling from './middlewares/errorHandling'
+import app from './app';
 import 'reflect-metadata';
-import { createConnection } from 'typeorm';
 
 const clusterWorkerSize = os.cpus().length;
 
@@ -20,26 +16,10 @@ if (clusterWorkerSize > 1) {
       console.log("Worker", worker.id, " has exitted.")
     })
   } else {
-    console.log('spawning child process');
-    const app = express();
-
-    app.use(json());
-
-    app.use('/todos', todoRoutes);
-
-    app.use(errorHandling);
-
+    console.log('spawning child process!');
     app.listen(process.env.PORT);
   }
 } else {
-  const app = express();
-
-  app.use(json());
-
-  app.use('/todos', todoRoutes);
-
-  app.use(errorHandling);
-
   app.listen(process.env.PORT);
 }
 
