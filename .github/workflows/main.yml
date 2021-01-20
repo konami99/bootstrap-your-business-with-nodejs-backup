@@ -26,6 +26,7 @@ jobs:
           postgresql password: test1123
           
       - run: npx tsc
+      - run: npm run migration:run
 
       - name: Run Specs
         run: npm test
