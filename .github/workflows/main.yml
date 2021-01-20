@@ -27,6 +27,11 @@ jobs:
           
       - run: npx tsc
       - run: npm run migration:run
+        env:
+          POSTGRES_HOST: localhost
+          POSTGRES_USERNAME: test
+          POSTGRES_PASSWORD: test1123
+          NODE_ENV: test
 
       - name: Run Specs
         run: npm test
