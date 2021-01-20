@@ -4,14 +4,31 @@ on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: '14.15.4'
-    - run: npm ci
-    - run: npm test
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.15.4'
+
+      - run: npm ci
+
+      - name: Setup PostgreSQL
+        uses: harmon758/postgresql-action@v1.0.0
+        with:
+          postgresql version: 12.1
+          postgresql db: node_test
+          postgresql user: test
+          postgresql password: test1123
+
+      - name: Run specs
+        run: npm test
+        env:
+          POSTGRES_HOST: localhost
+          POSTGRES_USERNAME: test
+          POSTGRES_PASSWORD: test1123
+          NODE_ENV: test
