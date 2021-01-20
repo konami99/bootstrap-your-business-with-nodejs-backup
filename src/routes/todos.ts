@@ -9,7 +9,7 @@ const router = Router();
 
 router.post('/', createTodo);
 
-router.get('/', authentication, getTodos);
+router.get('/', authentication, authentication, getTodos);
 
 router.patch('/:id', updateTodo);
 

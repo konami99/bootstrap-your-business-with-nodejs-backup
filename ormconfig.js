@@ -23,7 +23,6 @@ module.exports = {
   username: process.env.POSTGRES_USERNAME,
   password: process.env.POSTGRES_PASSWORD,
   database: database[process.env.NODE_ENV],
-  synchronize: true,
   entities: entities[process.env.NODE_ENV],
   subscribers: [
     "dist/subscribers/*.js"
