@@ -1,11 +1,9 @@
 import { RequestHandler } from 'express';
 import { Queue } from 'node-resque';
-// import { Todo } from '../models/todo';
 import QueueService from '../services/queue/queueService';
-import { createConnection } from 'typeorm';
+import DbConnection from '../services/db/dbConnection';
 import Todo from '../entities/Todo';
 
-// const TODOS: Todo[] = [];
 
 export const createTodo: RequestHandler = (req, res, next) => {
   
@@ -16,7 +14,7 @@ export const createTodo: RequestHandler = (req, res, next) => {
 export const getTodos: RequestHandler = async (req, res, next) => {
   await QueueService.enqueue('email', 'send', ['konami99@hotmail.com']);
 
-  const connection = await createConnection();
+  const connection = await DbConnection.getConnection();
 
   let todo = new Todo();
   todo.text = 'buy milk';
