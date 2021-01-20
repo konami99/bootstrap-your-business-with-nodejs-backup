@@ -24,19 +24,11 @@ jobs:
           postgresql db: node_test
           postgresql user: test
           postgresql password: test1123
-          
-      - name: Run migrations
-        run: npm run migration:run
-        env:
-          POSTGRES_HOST: localhost
-          POSTGRES_USERNAME: test
-          POSTGRES_PASSWORD: test1123
-          NODE_ENV: test
 
       - name: Run specs
         run: npm test
         env:
           POSTGRES_HOST: localhost
           POSTGRES_USERNAME: test
-          POSTGRES_PASSWORD: test1123
+          POSTGRES_PASSWORD: test11234
           NODE_ENV: test
