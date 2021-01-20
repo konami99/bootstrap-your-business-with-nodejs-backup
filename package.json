@@ -6,8 +6,8 @@
   "scripts": {
     "test": "jest",
     "start": "nf start",
-    "migration:run": "typeorm migration:run",
-    "migration:revert": "typeorm migration:revert"
+    "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run",
+    "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +22,7 @@
     "node-resque": "^8.2.0",
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",
+    "ts-node": "^9.1.1",
     "typeorm": "^0.2.30"
   },
   "devDependencies": {
