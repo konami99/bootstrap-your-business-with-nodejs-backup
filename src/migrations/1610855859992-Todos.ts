@@ -9,7 +9,8 @@ export class Todos1610855859992 implements MigrationInterface {
           {
             name: 'id',
             type: 'int',
-            isPrimary: true
+            isPrimary: true,
+            isGenerated: true
           },
           {
             name: 'text',
