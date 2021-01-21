@@ -6,6 +6,8 @@ import DbConnection from './services/db/dbConnection';
 
 const clusterWorkerSize = os.cpus().length;
 
+const SERVER_PORT = process.env.PORT || 80;
+
 if (clusterWorkerSize > 1) {
   if (cluster.isMaster) {
     console.log('spawning master');
@@ -18,12 +20,12 @@ if (clusterWorkerSize > 1) {
     })
   } else {
     console.log('spawning child process!');
-    app.listen(process.env.PORT, async () => {
+    app.listen(SERVER_PORT, async () => {
       await DbConnection.getConnection();
     });
   }
 } else {
-  app.listen(process.env.PORT, async () => {
+  app.listen(SERVER_PORT, async () => {
     await DbConnection.getConnection();
   });
 }
