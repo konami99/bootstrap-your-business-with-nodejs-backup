@@ -4,7 +4,7 @@ export default class QueueService {
   private static queue: Queue;
 
   public static connectionDetails() {
-    const REDIS_URL = 'redis-test.3svnlp.0001.usw2.cache.amazonaws.com' || '127.0.0.1';
+    const REDIS_URL = process.env.REDIS_URL || '127.0.0.1';
 
     return {
       pkg: "ioredis",
