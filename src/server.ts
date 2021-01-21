@@ -6,7 +6,7 @@ import DbConnection from './services/db/dbConnection';
 
 const clusterWorkerSize = os.cpus().length;
 
-const SERVER_PORT = 80;
+const SERVER_PORT = process.env.PORT || 80;
 
 if (clusterWorkerSize > 1) {
   if (cluster.isMaster) {
