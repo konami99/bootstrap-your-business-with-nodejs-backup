@@ -1,6 +1,7 @@
 const database = {
   development: "node_dev",
-  production: 'node_prd',
+  production: process.env.POSTGRES_DB_NAME,
+  staging: process.env.POSTGRES_DB_NAME,
   test: 'node_test'
 }
 
@@ -9,6 +10,9 @@ const entities = {
     "dist/entities/*.js"
   ],
   production: [
+    "dist/entities/*.js"
+  ],
+  staging: [
     "dist/entities/*.js"
   ],
   test: [
