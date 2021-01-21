@@ -1,0 +1,11 @@
+production:
+staging:
+  last_thing:
+  - inline: |
+
+      #!/usr/bin/env bash
+      npm run compile
+      npm run migration:run
+    target: any
+    execute: true
+    apply_during: all
