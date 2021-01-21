@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const node_resque_1 = require("node-resque");
 class QueueService {
     static connectionDetails() {
-        const REDIS_URL = process.env.REDIS_URL || '127.0.0.1';
+        const REDIS_URL = 'redis-test.3svnlp.0001.usw2.cache.amazonaws.com' || '127.0.0.1';
         return {
             pkg: "ioredis",
             host: REDIS_URL,
