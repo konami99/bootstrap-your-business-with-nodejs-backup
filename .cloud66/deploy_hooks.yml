@@ -11,4 +11,4 @@ staging:
       run_on: single_server
       execute: true
       apply_during: all
-      destination: <%= ENV['STACK_PATH'] %>
+      destination: <%= ENV['STACK_PATH'] %>/script.sh
