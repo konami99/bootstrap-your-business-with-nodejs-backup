@@ -1,7 +1,12 @@
 production:
 staging:
-  after_bundle:
-    - command: npm run migration:run
+  last_thing:
+    - inline: |
+        
+        #!/usr/bin/env bash
+        npm run migration:run
       target: node
-      execute: true
       run_on: single_server
+      execute: true
+      apply_during: all
+      destination: <%= ENV['STACK_PATH'] %>
