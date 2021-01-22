@@ -1,6 +1,6 @@
 production:
 staging:
-  last_thing:
+  after_docker:
     - inline: |
         
         #!/usr/bin/env bash
