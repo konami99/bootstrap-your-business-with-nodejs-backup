@@ -20,14 +20,14 @@ async function start() {
         send: JobWrapper.wrap(new sendEmailJob_1.default()),
     };
     const multiWorker = new node_resque_1.MultiWorker({
-        connection: queueService_1.default.connectionDetails,
+        connection: queueService_1.default.connectionDetails(),
         queues: ['email'],
         minTaskProcessors: 1,
         maxTaskProcessors: 100,
         checkTimeout: 1000,
         maxEventLoopDelay: 10,
     }, jobs);
-    const scheduler = new node_resque_1.Scheduler({ connection: queueService_1.default.connectionDetails });
+    const scheduler = new node_resque_1.Scheduler({ connection: queueService_1.default.connectionDetails() });
     multiWorker.start();
     await scheduler.connect();
     scheduler.start();

@@ -19,7 +19,7 @@ async function start() {
 
   const multiWorker = new MultiWorker(
     {
-      connection: QueueService.connectionDetails,
+      connection: QueueService.connectionDetails(),
       queues: ['email'],
       minTaskProcessors: 1,
       maxTaskProcessors: 100,
@@ -29,7 +29,7 @@ async function start() {
     jobs
   );
 
-  const scheduler = new Scheduler({ connection: QueueService.connectionDetails });
+  const scheduler = new Scheduler({ connection: QueueService.connectionDetails() });
 
   multiWorker.start();
 

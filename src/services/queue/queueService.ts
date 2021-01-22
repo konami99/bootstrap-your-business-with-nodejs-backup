@@ -26,7 +26,7 @@ export default class QueueService {
     if (QueueService.queue) {
       return QueueService.queue;
     }
-    QueueService.queue = new Queue({ connection: QueueService.connectionDetails });
+    QueueService.queue = new Queue({ connection: QueueService.connectionDetails() });
     return QueueService.queue;
   }
 }

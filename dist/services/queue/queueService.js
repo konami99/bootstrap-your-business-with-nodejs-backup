@@ -22,7 +22,7 @@ class QueueService {
         if (QueueService.queue) {
             return QueueService.queue;
         }
-        QueueService.queue = new node_resque_1.Queue({ connection: QueueService.connectionDetails });
+        QueueService.queue = new node_resque_1.Queue({ connection: QueueService.connectionDetails() });
         return QueueService.queue;
     }
 }
