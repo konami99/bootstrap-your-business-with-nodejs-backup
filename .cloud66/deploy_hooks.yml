@@ -1,10 +1,6 @@
 production:
 staging:
   after_bundle:
-    - command: npm run compile
-      target: node
-      execute: true
-      run_on: single_server
     - command: npm run migration:run
       target: node
       execute: true
