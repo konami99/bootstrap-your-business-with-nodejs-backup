@@ -4,9 +4,7 @@ staging:
     - inline: |
         
         #!/usr/bin/env bash
-        sudo apt install node-gyp nodejs-dev libssl1.0-dev
-        sudo apt install npm
-        npm run migration:run
+        cd /app && npm run migration:run
       target: node
       run_on: single_server
       execute: true
