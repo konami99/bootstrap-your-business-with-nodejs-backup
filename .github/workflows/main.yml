@@ -40,6 +40,9 @@ jobs:
           POSTGRES_USERNAME: test
           POSTGRES_PASSWORD: test1123
           NODE_ENV: test
-
-      - name: Deploy to Cloud66
-        run: curl -X POST https://hooks.cloud66.com/stacks/redeploy/7b7bedb98c1d7e0983be4b6a69dfdc37/4df8eca2eaaa34102f7d0ce17dba30b5?services=web,worker
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/dev'
+    steps:
+      - run: curl -X POST https://hooks.cloud66.com/stacks/redeploy/7b7bedb98c1d7e0983be4b6a69dfdc37/4df8eca2eaaa34102f7d0ce17dba30b5?services=web,worker
