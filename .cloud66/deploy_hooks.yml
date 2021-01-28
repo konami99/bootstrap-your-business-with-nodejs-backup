@@ -1,0 +1,14 @@
+production:
+staging:
+  last_thing:
+    - inline: |
+        
+        #!/usr/bin/env bash
+        
+        web_container_id=$(docker ps -qf name=^web.* | tail -1)
+        [ ! -z "$web_container_id" ] && docker exec -i $web_container_id npm run migration:run
+
+      target: node
+      run_on: single_server
+      execute: true
+      apply_during: all
