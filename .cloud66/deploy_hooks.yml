@@ -5,6 +5,10 @@ staging:
 
         #!/usr/bin/env bash
         web_container_id=$(docker ps -qf name=^web.* | tail -1)
+        if [[ ! -z "$web_container_id" ]]
+        then
+          docker exec -i $web_container_id npm run migration:run
+        fi
       target: node
       run_on: single_server
       execute: true
