@@ -4,7 +4,7 @@ staging:
     - inline: |
 
         #!/usr/bin/env bash
-
+        web_container_id=$(docker ps -qf name=^web.* | tail -1)
       target: node
       run_on: single_server
       execute: true
