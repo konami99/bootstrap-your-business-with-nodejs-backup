@@ -31,7 +31,7 @@ jobs:
           NODE_ENV: test
           
       - run: npm run compile
-      - run: npm run migration:run
+      - run: npm run migration:run:test
         env:
           POSTGRES_HOST: localhost
           POSTGRES_USERNAME: test
