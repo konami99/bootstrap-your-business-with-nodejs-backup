@@ -1,11 +1,3 @@
 production:
 staging:
   last_thing:
-    - inline: |
-        
-        #!/usr/bin/env bash
-        cd /app && npm run migration:run
-      target: node
-      run_on: single_server
-      execute: true
-      apply_during: all

@@ -7,6 +7,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "ts-node ./node_modules/typeorm/cli.js migration:run",
     "test": "jest",
     "start": "nf start",
     "compile": "rm -rf dist; tsc",
