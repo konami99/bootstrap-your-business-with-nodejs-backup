@@ -5,6 +5,7 @@ staging:
 
         #!/usr/bin/env bash
         web_container_id=$(docker ps -qf name=^web.* | tail -1)
+        echo "web_container_id: ${web_container_id}"
         docker exec -i $web_container_id npm run migration:run
       target: node
       run_on: single_server
