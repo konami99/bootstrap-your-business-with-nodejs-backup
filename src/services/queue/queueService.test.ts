@@ -24,6 +24,6 @@ describe('QueueService', () => {
   it('calls enqueue on Queue', async () => {
     await QueueService.enqueue('queue1', 'sendEmail');
 
-    expect(enqueueMock).not.toBeCalled()
+    expect(enqueueMock).toBeCalled()
   })
 })
