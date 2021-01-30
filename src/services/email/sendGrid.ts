@@ -6,7 +6,7 @@ export default class SendGrid implements EmailProviderInterface {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
     const msg = {
       to: email,
-      from: 'ethan@richardchou.id.au',
+      from: '',
       subject: 'Sending with SendGrid is Fun',
       text: 'and easy to do anywhere, even with Node.js',
       html: '<strong>and easy to do anywhere, even with Node.js</strong>',
