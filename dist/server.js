@@ -12,16 +12,17 @@ const clusterWorkerSize = os_1.default.cpus().length;
 const SERVER_PORT = process.env.PORT || 80;
 if (clusterWorkerSize > 1) {
     if (cluster_1.default.isMaster) {
-        console.log('spawning master');
+        console.log('Spawning master');
         for (let i = 0; i < clusterWorkerSize; i++) {
             cluster_1.default.fork();
         }
         cluster_1.default.on("exit", function (worker) {
-            console.log("Worker", worker.id, " has exitted.");
+            console.log("Worker", worker.id, " has exitted. Respawning worker.");
+            cluster_1.default.fork();
         });
     }
     else {
-        console.log('spawning child process!');
+        console.log('Spawning child process!');
         app_1.default.listen(SERVER_PORT, async () => {
             await dbConnection_1.default.getConnection();
         });

@@ -31,5 +31,17 @@ async function start() {
     multiWorker.start();
     await scheduler.connect();
     scheduler.start();
+    async function shutdown() {
+        console.log('shutting down...');
+        await queueService_1.default.endQueue();
+        await scheduler.end();
+        await multiWorker.end();
+    }
+    process.on('SIGTERM', async () => {
+        await shutdown();
+    });
+    process.on('SIGINT', async () => {
+        await shutdown();
+    });
 }
 start();

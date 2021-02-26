@@ -16,7 +16,9 @@ class QueueService {
         const queue = this.getQueue();
         await queue.connect();
         await queue.enqueue(q, func, args);
-        await queue.end();
+    }
+    static async endQueue() {
+        await this.getQueue().end();
     }
     static getQueue() {
         if (QueueService.queue) {

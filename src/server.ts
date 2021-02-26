@@ -10,16 +10,17 @@ const SERVER_PORT = process.env.PORT || 80;
 
 if (clusterWorkerSize > 1) {
   if (cluster.isMaster) {
-    console.log('spawning master');
+    console.log('Spawning master');
     for (let i=0; i < clusterWorkerSize; i++) {
-      cluster.fork()
+      cluster.fork();
     }
 
     cluster.on("exit", function(worker) {
-      console.log("Worker", worker.id, " has exitted.")
+      console.log("Worker", worker.id, " has exitted. Respawning worker.");
+      cluster.fork();
     })
   } else {
-    console.log('spawning child process!');
+    console.log('Spawning child process!');
     app.listen(SERVER_PORT, async () => {
       await DbConnection.getConnection();
     });
